@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقات تهنئة عيد الأضحى الفاخرة | مطور: madin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;800;900&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            padding: 30px 20px 15px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0a 100%);
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .header h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(45deg, #d4af37, #f4e4ba, #d4af37, #b8860b);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: goldShift 4s ease infinite;
+            margin-bottom: 5px;
+        }
+
+        @keyframes goldShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header p {
+            color: #aaa;
+            font-size: 1.1em;
+        }
+
+        /* ===== DEVELOPER CREDIT ===== */
+        .dev-credit {
+            text-align: center;
+            padding: 12px 20px;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.1), transparent);
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+        }
+
+        .dev-credit span {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .dev-credit .dev-name {
+            color: #d4af37;
+            font-weight: 700;
+            font-size: 1em;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(212,175,55,0.3);
+        }
+
+        .dev-credit .dev-icon {
+            color: #d4af37;
+            margin: 0 5px;
+        }
+
+        /* ===== INPUT SECTION ===== */
+        .control-panel {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .input-group {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(212,175,55,0.3);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-group input {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px 25px;
+            font-size: 1.4em;
+            border: 2px solid #d4af37;
+            border-radius: 50px;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            background: rgba(0,0,0,0.5);
+            color: #d4af37;
+            outline: none;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .input-group input:focus {
+            box-shadow: 0 0 30px rgba(212,175,55,0.4);
+            background: rgba(0,0,0,0.8);
+        }
+
+        .input-group input::placeholder { color: #666; }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            transition: all 0.3s;
+            margin: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before { left: 100%; }
+
+        .btn-gold {
+            background: linear-gradient(45deg, #d4af37, #f4e4ba, #d4af37);
+            color: #1a1a2e;
+            box-shadow: 0 5px 20px rgba(212,175,55,0.3);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.5);
+        }
+
+        .btn-download {
+            background: linear-gradient(45deg, #8b0000, #dc143c);
+            color: white;
+            display: none;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(220,20,60,0.4);
+        }
+
+        /* ===== DESIGN SELECTOR ===== */
+        .design-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .design-thumb {
+            aspect-ratio: 1;
+            border-radius: 15px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+
+        .design-thumb:hover { transform: scale(1.05); }
+        .design-thumb.active { border-color: #d4af37; box-shadow: 0 0 20px rgba(212,175,55,0.5); }
+
+        .thumb-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 5px;
+            font-size: 0.7em;
+            text-align: center;
+        }
+
+        /* ===== CARD CONTAINER ===== */
+        .cards-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .card-outer {
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .card-outer.active { display: block; }
+
+        .card-inner {
+            width: 100%;
+            aspect-ratio: 1/1.15;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+        }
+
+        /* ==================== DESIGN 1: GOLDEN ROYAL ==================== */
+        .design-1 {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 30%, #2d1b4e 60%, #0f0f23 100%);
+        }
+
+        .design-1 .d1-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212,175,55,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(212,175,55,0.1) 0%, transparent 50%);
+        }
+
+        .design-1 .d1-frame {
+            position: absolute;
+            inset: 15px;
+            border: 3px solid #d4af37;
+            border-radius: 20px;
+        }
+
+        .design-1 .d1-frame::before,
+        .design-1 .d1-frame::after {
+            content: '◆';
+            position: absolute;
+            color: #d4af37;
+            font-size: 24px;
+        }
+
+        .design-1 .d1-frame::before { top: -15px; left: 50%; transform: translateX(-50%); }
+        .design-1 .d1-frame::after { bottom: -15px; left: 50%; transform: translateX(-50%); }
+
+        .design-1 .d1-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #d4af37;
+        }
+
+        .design-1 .d1-corner.tl { top: 25px; left: 25px; border-right: none; border-bottom: none; }
+        .design-1 .d1-corner.tr { top: 25px; right: 25px; border-left: none; border-bottom: none; }
+        .design-1 .d1-corner.bl { bottom: 25px; left: 25px; border-right: none; border-top: none; }
+        .design-1 .d1-corner.br { bottom: 25px; right: 25px; border-left: none; border-top: none; }
+
+        .design-1 .d1-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .design-1 .d1-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.6em;
+            color: #d4af37;
+            text-shadow: 0 0 30px rgba(212,175,55,0.5), 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+
+        .design-1 .d1-subtitle {
+            font-size: 1.3em;
+            color: #f4e4ba;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+
+        .design-1 .d1-name-box {
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.05));
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 15px 40px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .design-1 .d1-name-box::before,
+        .design-1 .d1-name-box::after {
+            content: '❧';
+            position: absolute;
+            color: #d4af37;
+            font-size: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .design-1 .d1-name-box::before { left: 10px; }
+        .design-1 .d1-name-box::after { right: 10px; }
+
+        .design-1 .d1-name {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.2em;
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .design-1 .d1-blessing {
+            color: #c0c0c0;
+            font-size: 1em;
+            margin-top: 25px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .design-1 .d1-sheep {
+            position: absolute;
+            bottom: 60px;
+            font-size: 60px;
+            opacity: 0.8;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+
+        /* ==================== DESIGN 2: ISLAMIC GEOMETRIC ==================== */
+        .design-2 {
+            background: linear-gradient(180deg, #1e3a5f 0%, #0d2137 50%, #1a1a2e 100%);
+        }
+
+        .design-2 .d2-geo {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(212,175,55,0.03) 35px, rgba(212,175,55,0.03) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(212,175,55,0.03) 35px, rgba(212,175,55,0.03) 70px);
+        }
+
+        .design-2 .d2-mandala {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border: 2px solid rgba(212,175,55,0.2);
+            border-radius: 50%;
+        }
+
+        .design-2 .d2-mandala::before {
+            content: '';
+            position: absolute;
+            inset: 30px;
+            border: 2px solid rgba(212,175,55,0.15);
+            border-radius: 50%;
+        }
+
+        .design-2 .d2-mandala::after {
+            content: '';
+            position: absolute;
+            inset: 60px;
+            border: 2px solid rgba(212,175,55,0.1);
+            border-radius: 50%;
+        }
+
+        .design-2 .d2-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .design-2 .d2-ornament-top {
+            font-size: 3em;
+            color: #d4af37;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(212,175,55,0.4);
+        }
+
+        .design-2 .d2-title {
+            font-family: 'Scheherazade New', serif;
+            font-size: 3em;
+            color: #d4af37;
+            margin-bottom: 5px;
+            text-shadow: 0 0 20px rgba(212,175,55,0.3);
+        }
+
+        .design-2 .d2-divider {
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .design-2 .d2-divider::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #d4af37;
+            font-size: 20px;
+            background: #1e3a5f;
+            padding: 0 10px;
+        }
+
+        .design-2 .d2-name {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.4em;
+            font-weight: 900;
+            color: white;
+            margin: 15px 0;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .design-2 .d2-blessing {
+            color: #a0c4e8;
+            font-size: 1em;
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .design-2 .d2-ornament-bottom {
+            font-size: 2.5em;
+            color: #d4af37;
+            margin-top: 15px;
+            opacity: 0.8;
+        }
+
+        /* ==================== DESIGN 3: LUXURY MARBLE ==================== */
+        .design-3 {
+            background: linear-gradient(135deg, #2c1810 0%, #1a0f0a 50%, #0d0805 100%);
+        }
+
+        .design-3 .d3-marble {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(139,90,43,0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(160,82,45,0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.05) 0%, transparent 70%);
+        }
+
+        .design-3 .d3-gold-border {
+            position: absolute;
+            inset: 20px;
+            border: 4px solid transparent;
+            border-radius: 20px;
+            background: linear-gradient(#2c1810, #2c1810) padding-box,
+                        linear-gradient(135deg, #d4af37, #f4e4ba, #d4af37, #b8860b) border-box;
+        }
+
+        .design-3 .d3-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        .design-3 .d3-crown {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 20px rgba(212,175,55,0.6));
+        }
+
+        .design-3 .d3-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.4em;
+            color: #f4e4ba;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 5px;
+        }
+
+        .design-3 .d3-line {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 15px 0;
+        }
+
+        .design-3 .d3-name-plate {
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
+            border: 1px solid rgba(212,175,55,0.4);
+            border-radius: 10px;
+            padding: 12px 50px;
+            margin: 15px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .design-3 .d3-name {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.3em;
+            font-weight: 900;
+            color: #d4af37;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .design-3 .d3-blessing {
+            color: #c8b896;
+            font-size: 0.95em;
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .design-3 .d3-sheep {
+            position: absolute;
+            bottom: 50px;
+            right: 40px;
+            font-size: 50px;
+            opacity: 0.7;
+        }
+
+        /* ==================== DESIGN 4: NIGHT SKY ==================== */
+        .design-4 {
+            background: linear-gradient(180deg, #0a0e27 0%, #1a1a4e 40%, #2d1b69 70%, #0d0d1a 100%);
+        }
+
+        .design-4 .d4-stars {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .design-4 .d4-star {
+            position: absolute;
+            color: white;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .design-4 .d4-moon {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 80px;
+            height: 80px;
+            background: #f4e4ba;
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(244,228,186,0.5), inset -15px -5px 30px rgba(200,170,100,0.3);
+        }
+
+        .design-4 .d4-moon::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: -20px;
+            width: 70px;
+            height: 70px;
+            background: #1a1a4e;
+            border-radius: 50%;
+        }
+
+        .design-4 .d4-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .design-4 .d4-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.8em;
+            color: #f4e4ba;
+            text-shadow: 0 0 30px rgba(244,228,186,0.4), 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+
+        .design-4 .d4-stars-divider {
+            font-size: 1.5em;
+            color: #d4af37;
+            letter-spacing: 10px;
+            margin: 10px 0;
+        }
+
+        .design-4 .d4-name {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3), 2px 2px 8px rgba(0,0,0,0.5);
+            margin: 15px 0;
+            padding: 10px 40px;
+            border: 2px solid rgba(244,228,186,0.3);
+            border-radius: 15px;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .design-4 .d4-blessing {
+            color: #b8c5e8;
+            font-size: 1em;
+            margin-top: 20px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .design-4 .d4-sheep {
+            position: absolute;
+            bottom: 80px;
+            font-size: 70px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+
+        .design-4 .d4-mosque {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+
+        /* ==================== DESIGN 5: EMERALD ROYAL ==================== */
+        .design-5 {
+            background: linear-gradient(135deg, #0d2818 0%, #1a5f2a 30%, #0d3320 60%, #051a0f 100%);
+        }
+
+        .design-5 .d5-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(212,175,55,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 75% 75%, rgba(212,175,55,0.08) 0%, transparent 40%);
+        }
+
+        .design-5 .d5-frame {
+            position: absolute;
+            inset: 18px;
+            border: 3px double #d4af37;
+            border-radius: 20px;
+        }
+
+        .design-5 .d5-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .design-5 .d5-ornament {
+            font-size: 2.5em;
+            color: #d4af37;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(212,175,55,0.4);
+        }
+
+        .design-5 .d5-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.6em;
+            color: #d4af37;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 5px;
+        }
+
+        .design-5 .d5-sub {
+            color: #90ee90;
+            font-size: 1.1em;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .design-5 .d5-name-box {
+            background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 15px 50px;
+            margin: 15px 0;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .design-5 .d5-name {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.3em;
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .design-5 .d5-blessing {
+            color: #c8e6c9;
+            font-size: 0.95em;
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .design-5 .d5-sheep {
+            position: absolute;
+            bottom: 60px;
+            right: 30px;
+            font-size: 60px;
+            opacity: 0.85;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
+        }
+
+        /* ==================== DESIGN 6: MODERN MINIMAL ==================== */
+        .design-6 {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .design-6 .d6-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #d4af37, #f4e4ba, #d4af37, #b8860b, #d4af37);
+            background-size: 200% 100%;
+            animation: goldFlow 3s linear infinite;
+        }
+
+        @keyframes goldFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .design-6 .d6-accent-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #d4af37, #f4e4ba, #d4af37, #b8860b, #d4af37);
+            background-size: 200% 100%;
+            animation: goldFlow 3s linear infinite reverse;
+        }
+
+        .design-6 .d6-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        .design-6 .d6-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 25px rgba(212,175,55,0.5));
+        }
+
+        .design-6 .d6-title {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.8em;
+            font-weight: 900;
+            color: #d4af37;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+            margin-bottom: 5px;
+        }
+
+        .design-6 .d6-line {
+            width: 100px;
+            height: 3px;
+            background: #d4af37;
+            margin: 15px 0;
+            border-radius: 2px;
+        }
+
+        .design-6 .d6-name {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.4em;
+            font-weight: 700;
+            color: white;
+            margin: 15px 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .design-6 .d6-blessing {
+            color: #a0b4d0;
+            font-size: 1em;
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .design-6 .d6-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 19px, #d4af37 19px, #d4af37 20px),
+                              repeating-linear-gradient(90deg, transparent, transparent 19px, #d4af37 19px, #d4af37 20px);
+        }
+
+        /* ===== FOOTER / DEVELOPER CREDIT ===== */
+        .site-footer {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(180deg, #0a0a0a, #1a1a2e);
+            border-top: 1px solid rgba(212,175,55,0.2);
+            margin-top: 20px;
+        }
+
+        .site-footer .footer-content {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(212,175,55,0.05));
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 50px;
+            padding: 10px 30px;
+        }
+
+        .site-footer .footer-icon {
+            font-size: 1.3em;
+        }
+
+        .site-footer .footer-text {
+            color: #888;
+            font-size: 0.95em;
+        }
+
+        .site-footer .footer-name {
+            color: #d4af37;
+            font-weight: 900;
+            font-size: 1.1em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(212,175,55,0.4);
+        }
+
+        .site-footer .footer-year {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+
+        /* ===== LOADING ===== */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .loading-overlay.active { display: flex; }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(212,175,55,0.2);
+            border-top-color: #d4af37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loader-text {
+            margin-top: 20px;
+            color: #d4af37;
+            font-size: 1.2em;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 500px) {
+            .header h1 { font-size: 1.8em; }
+            .design-1 .d1-title, .design-2 .d2-title, .design-3 .d3-title,
+            .design-4 .d4-title, .design-5 .d5-title, .design-6 .d6-title { font-size: 2em; }
+            .design-1 .d1-name, .design-2 .d2-name, .design-3 .d3-name,
+            .design-4 .d4-name, .design-5 .d5-name, .design-6 .d6-name { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+        <div class="loader-text">جاري إنشاء الصورة الفاخرة...</div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>✦ بطاقات تهنئة عيد الأضحى ✦</h1>
+        <p>اختر تصميماً فاخراً واكتب اسمك</p>
+    </div>
+
+    <!-- Developer Credit -->
+    <div class="dev-credit">
+        <span class="dev-icon">💻</span>
+        <span>مطور الموقع:</span>
+        <span class="dev-name">madin</span>
+        <span class="dev-icon">⚡</span>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <div class="input-group">
+            <p style="color: #d4af37; margin-bottom: 15px; font-size: 1.1em;">🎨 اختر التصميم الفاخر:</p>
+
+            <div class="design-selector">
+                <div class="design-thumb active" onclick="selectDesign(1)" style="background: linear-gradient(135deg, #0f0f23, #2d1b4e);" data-design="1">
+                    <span style="font-size: 1.5em;">👑</span>
+                    <div class="thumb-label">ملكي ذهبي</div>
+                </div>
+                <div class="design-thumb" onclick="selectDesign(2)" style="background: linear-gradient(180deg, #1e3a5f, #1a1a2e);" data-design="2">
+                    <span style="font-size: 1.5em;">❋</span>
+                    <div class="thumb-label">هندسي إسلامي</div>
+                </div>
+                <div class="design-thumb" onclick="selectDesign(3)" style="background: linear-gradient(135deg, #2c1810, #0d0805);" data-design="3">
+                    <span style="font-size: 1.5em;">💎</span>
+                    <div class="thumb-label">رخامي فاخر</div>
+                </div>
+                <div class="design-thumb" onclick="selectDesign(4)" style="background: linear-gradient(180deg, #0a0e27, #2d1b69);" data-design="4">
+                    <span style="font-size: 1.5em;">🌙</span>
+                    <div class="thumb-label">سماء الليل</div>
+                </div>
+                <div class="design-thumb" onclick="selectDesign(5)" style="background: linear-gradient(135deg, #0d2818, #1a5f2a);" data-design="5">
+                    <span style="font-size: 1.5em;">🌿</span>
+                    <div class="thumb-label">زمردي ملكي</div>
+                </div>
+                <div class="design-thumb" onclick="selectDesign(6)" style="background: linear-gradient(145deg, #1a1a2e, #0f3460);" data-design="6">
+                    <span style="font-size: 1.5em;">✨</span>
+                    <div class="thumb-label">عصري أنيق</div>
+                </div>
+            </div>
+
+            <input type="text" id="nameInput" placeholder="✍️ اكتب اسمك هنا..." maxlength="25">
+            <br>
+            <button class="btn btn-gold" onclick="generateCard()">✨ عرض التصميم</button>
+            <button class="btn btn-download" id="downloadBtn" onclick="downloadCard()">📥 تحميل الصورة عالية الجودة</button>
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards-wrapper">
+        <!-- DESIGN 1: Golden Royal -->
+        <div class="card-outer active" id="cardOuter1">
+            <div class="card-inner design-1" id="card1">
+                <div class="d1-pattern"></div>
+                <div class="d1-frame"></div>
+                <div class="d1-corner tl"></div>
+                <div class="d1-corner tr"></div>
+                <div class="d1-corner bl"></div>
+                <div class="d1-corner br"></div>
+                <div class="d1-sheep">🐑</div>
+                <div class="d1-content">
+                    <div class="d1-title">عيد أضحى مبارك</div>
+                    <div class="d1-subtitle">EID MUBARAK</div>
+                    <div class="d1-name-box">
+                        <div class="d1-name" id="name1">اسمك هنا</div>
+                    </div>
+                    <div class="d1-blessing">
+                        تقبل الله منا ومنكم صالح الأعمال<br>
+                        كل عام وأنتم بخير
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN 2: Islamic Geometric -->
+        <div class="card-outer" id="cardOuter2">
+            <div class="card-inner design-2" id="card2">
+                <div class="d2-geo"></div>
+                <div class="d2-mandala"></div>
+                <div class="d2-content">
+                    <div class="d2-ornament-top">❋ ❋ ❋</div>
+                    <div class="d2-title">عيد أضحى مبارك</div>
+                    <div class="d2-divider"></div>
+                    <div class="d2-name" id="name2">اسمك هنا</div>
+                    <div class="d2-divider"></div>
+                    <div class="d2-blessing">
+                        تقبل الله منا ومنكم صالح الأعمال<br>
+                        وكل عام وأنتم بخير
+                    </div>
+                    <div class="d2-ornament-bottom">🐑</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN 3: Luxury Marble -->
+        <div class="card-outer" id="cardOuter3">
+            <div class="card-inner design-3" id="card3">
+                <div class="d3-marble"></div>
+                <div class="d3-gold-border"></div>
+                <div class="d3-sheep">🐑</div>
+                <div class="d3-content">
+                    <div class="d3-crown">👑</div>
+                    <div class="d3-title">عيد أضحى مبارك</div>
+                    <div class="d3-line"></div>
+                    <div class="d3-name-plate">
+                        <div class="d3-name" id="name3">اسمك هنا</div>
+                    </div>
+                    <div class="d3-blessing">
+                        تقبل الله منا ومنكم صالح الأعمال<br>
+                        كل عام وأنتم بخير
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN 4: Night Sky -->
+        <div class="card-outer" id="cardOuter4">
+            <div class="card-inner design-4" id="card4">
+                <div class="d4-stars" id="starsContainer"></div>
+                <div class="d4-moon"></div>
+                <div class="d4-sheep">🐑</div>
+                <div class="d4-mosque"></div>
+                <div class="d4-content">
+                    <div class="d4-title">عيد أضحى مبارك</div>
+                    <div class="d4-stars-divider">✦ ✦ ✦</div>
+                    <div class="d4-name" id="name4">اسمك هنا</div>
+                    <div class="d4-blessing">
+                        تقبل الله منا ومنكم صالح الأعمال<br>
+                        وكل عام وأنتم بخير
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN 5: Emerald Royal -->
+        <div class="card-outer" id="cardOuter5">
+            <div class="card-inner design-5" id="card5">
+                <div class="d5-pattern"></div>
+                <div class="d5-frame"></div>
+                <div class="d5-sheep">🐑</div>
+                <div class="d5-content">
+                    <div class="d5-ornament">🌙</div>
+                    <div class="d5-title">عيد أضحى مبارك</div>
+                    <div class="d5-sub">EID AL-ADHA</div>
+                    <div class="d5-name-box">
+                        <div class="d5-name" id="name5">اسمك هنا</div>
+                    </div>
+                    <div class="d5-blessing">
+                        تقبل الله منا ومنكم صالح الأعمال<br>
+                        كل عام وأنتم بخير
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN 6: Modern Minimal -->
+        <div class="card-outer" id="cardOuter6">
+            <div class="card-inner design-6" id="card6">
+                <div class="d6-accent"></div>
+                <div class="d6-accent-bottom"></div>
+                <div class="d6-pattern"></div>
+                <div class="d6-content">
+                    <div class="d6-icon">🐑</div>
+                    <div class="d6-title">عيد أضحى مبارك</div>
+                    <div class="d6-line"></div>
+                    <div class="d6-name" id="name6">اسمك هنا</div>
+                    <div class="d6-blessing">
+                        تقبل الله منا ومنكم صالح الأعمال<br>
+                        وكل عام وأنتم بخير
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer / Developer Credit -->
+    <div class="site-footer">
+        <div class="footer-content">
+            <span class="footer-icon">💻</span>
+            <span class="footer-text">مطور الموقع:</span>
+            <span class="footer-name">madin</span>
+            <span class="footer-icon">⚡</span>
+        </div>
+        <div class="footer-year">© 2026 - جميع الحقوق محفوظة</div>
+    </div>
+
+    <script>
+        let currentDesign = 1;
+
+        // Generate stars for design 4
+        function generateStars() {
+            const container = document.getElementById('starsContainer');
+            container.innerHTML = '';
+            const symbols = ['✦', '✧', '•', '·'];
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'd4-star';
+                star.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 70 + '%';
+                star.style.fontSize = (Math.random() * 12 + 8) + 'px';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(star);
+            }
+        }
+
+        generateStars();
+
+        function selectDesign(num) {
+            currentDesign = num;
+            document.querySelectorAll('.design-thumb').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-design="${num}"]`).classList.add('active');
+
+            document.querySelectorAll('.card-outer').forEach(c => c.classList.remove('active'));
+            document.getElementById(`cardOuter${num}`).classList.add('active');
+
+            // Update name if already entered
+            const name = document.getElementById('nameInput').value.trim();
+            if (name) {
+                document.getElementById(`name${num}`).textContent = name;
+            }
+        }
+
+        function generateCard() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (!name) {
+                alert('الرجاء كتابة اسمك أولاً ✍️');
+                return;
+            }
+
+            // Update all names
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`name${i}`).textContent = name;
+            }
+
+            document.getElementById('downloadBtn').style.display = 'inline-block';
+
+            setTimeout(() => {
+                document.getElementById(`cardOuter${currentDesign}`).scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }, 100);
+        }
+
+        function downloadCard() {
+            const loading = document.getElementById('loadingOverlay');
+            loading.classList.add('active');
+
+            const card = document.getElementById(`card${currentDesign}`);
+
+            html2canvas(card, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null,
+                logging: false,
+                quality: 1
+            }).then(canvas => {
+                const link = document.createElement('a');
+                const name = document.getElementById('nameInput').value.trim();
+                link.download = `عيد_الأضحى_تصميم_${currentDesign}_${name}.png`;
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+
+                loading.classList.remove('active');
+            }).catch(err => {
+                console.error(err);
+                alert('حدث خطأ، الرجاء المحاولة مرة أخرى');
+                loading.classList.remove('active');
+            });
+        }
+
+        document.getElementById('nameInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') generateCard();
+        });
+    </script>
+</body>
+</html>
